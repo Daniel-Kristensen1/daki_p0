@@ -7,12 +7,12 @@ def main():
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
-    image_path = r"C:\Users\admin\Downloads\King Domino dataset\1.jpg"
+    image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\1.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
     image = cv.imread(image_path)
-    tiles = get_tiles(image)
+    tiles = get_tiles(image) 
     print(len(tiles))
     for y, row in enumerate(tiles):
         for x, tile in enumerate(row):
@@ -21,6 +21,7 @@ def main():
             print("=====")
 
 # Break a board into tiles
+# Returns a list of ??
 def get_tiles(image):
     tiles = []
     for y in range(5):
@@ -30,6 +31,7 @@ def get_tiles(image):
     return tiles
 
 # Determine the type of terrain in a tile
+# Returns a string
 def get_terrain(tile):
     hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
     hue, saturation, value = np.mean(hsv_tile, axis=(0,1)) # Consider using median instead of mean
