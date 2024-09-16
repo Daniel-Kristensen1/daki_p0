@@ -16,6 +16,7 @@ def main():
         return
     image = cv.imread(image_path)
     tiles = get_tiles(image) 
+    #print(tiles[0])
     print(len(tiles))
     for y, row in enumerate(tiles):
         for x, tile in enumerate(row):
@@ -38,6 +39,12 @@ def get_tiles(image):
 hsv_data = []
 def get_terrain(tile,x ,y):
     hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
+    if x ==0:
+        print(f"First three {hsv_tile[0:3]}") #Maybe works
+        print(f"Last three {hsv_tile[-3:]}") #Maybe works
+        print(f"test {hsv_tile[0:1][0:3]}") #Not working
+        print(f"test {hsv_tile[0][-3:]}") #Not working
+        
     hue, saturation, value = np.median(hsv_tile, axis=(0,1)) # Consider using median instead of mean
     print(f"H: {hue}, S: {saturation}, V: {value}")
     hsv_data.append({"Coordinate": f"{x},{y}", "Hue": hue, "Saturation": saturation, "Value": value}) #Adds data to the dataset
