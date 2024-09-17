@@ -10,7 +10,8 @@ def main():
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
-    image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\57.jpg"
+    #image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\57.jpg"
+    image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
@@ -37,15 +38,44 @@ def get_tiles(image):
 # Determine the type of terrain in a tile
 # Returns a string
 hsv_data = []
+row4 = []
 def get_terrain(tile,x ,y):
     hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
     if x ==0:
-        print(f"First three {hsv_tile[0:3]}") #Maybe works
-        print(f"Last three {hsv_tile[-3:]}") #Maybe works
-        print(f"test {hsv_tile[0:1][0:3]}") #Not working
-        print(f"test {hsv_tile[0][-3:]}") #Not working
-        
-    hue, saturation, value = np.median(hsv_tile, axis=(0,1)) # Consider using median instead of mean
+        vertical = hsv_tile[3:-3]
+        row4 = vertical[:]
+        del row4[3:-3]
+        #row4.append(vertical[0][0:3].tolist())
+        #row4[-1].append(vertical[0][-3:].tolist())
+        #print(vertical[0][0:3])
+        #print(vertical[0][-4:])
+        print(row4)
+    '''
+        horisontal = []
+        for y, value in enumerate(vertical):
+            #print(y)
+            temp = []
+            
+            for x, hsv in enumerate(value):
+               
+               #print(f"{y}, {x}, {hsv}")
+               if 3 > x:
+                   #print(f"{y}, {x}, {hsv}")
+                   temp.append(hsv.tolist())
+            horisontal.append(temp)
+            print(temp[0])
+        #print(horisontal[0])
+        clean_output = [hsv.tolist() for hsv in horisontal[0][:10]]
+        #print(clean_output)
+        #print(vertical)
+        #print(hsv_tile[-4])
+        #print(f"First three {hsv_tile[0:3]}") #Maybe works
+        #print(f"Last three {hsv_tile[-3:]}") #Maybe works
+        #print(f"test {hsv_tile[3:-4]}") #Not working
+        #print(f"test {hsv_tile[0][-3:]}") #Not working
+    '''
+
+    hue, saturation, value = np.mean(row4, axis=(0,1)) # Consider using median instead of mean
     print(f"H: {hue}, S: {saturation}, V: {value}")
     hsv_data.append({"Coordinate": f"{x},{y}", "Hue": hue, "Saturation": saturation, "Value": value}) #Adds data to the dataset
     if 0 < hue < 0 and 0 < saturation < 0 and 0 < value < 0:
