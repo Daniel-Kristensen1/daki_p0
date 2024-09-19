@@ -10,8 +10,8 @@ def main():
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
-    image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\57.jpg"
-    #image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
+    #image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\57.jpg"
+    image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
@@ -42,17 +42,17 @@ hsv_data = []
 def get_terrain(tile,x ,y):
     hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
     #if x ==0 and y==0:
-    row4 = []
+    edge_list = []
     for y, row in enumerate(hsv_tile):
         if 2 < y < 97:
             for x, hsv in enumerate(row):
                 if x<3 or x>96:
-                    row4.append(hsv.tolist())
+                    edge_list.append(hsv.tolist())
         else: 
             for x, hsv in enumerate(row):
-                row4.append(hsv.tolist())
+                edge_list.append(hsv.tolist())
         #row4.append(row.tolist())
-    vertical = hsv_tile[3:-3]
+    #vertical = hsv_tile[3:-3]
         #print(vertical[0][:3])
     #for index, row in enumerate(vertical):
 
@@ -62,7 +62,7 @@ def get_terrain(tile,x ,y):
         #row4.append(vertical[0][-3:].tolist())
     #print(f"row4: {len(row4)}")
     #row4.append(hsv_tile[0].tolist())
-    print(f"row4: {len(row4)}")
+    print(f"row4: {len(edge_list)}")
     #print(f"row4: {row4[:]}")
     #print(hsv_tile[0][0])
     #print(f"hsv: {hsv_tile[0]}")
@@ -99,7 +99,10 @@ def get_terrain(tile,x ,y):
         #print(f"test {hsv_tile[0][-3:]}") #Not working
     '''
 
-    hue, saturation, value = np.mean(row4, axis=(0)) # Consider using median instead of mean
+    hue, saturation, value = np.median(edge_list, axis=(0)) # Consider using median instead of mean
+    hue = round(hue, 5)
+    saturation = round(saturation, 5)
+    value = round(value, 5)
     #hue, saturation, value = np.mean(hsv_tile, axis=(0,1))
     print(f"H: {hue}, S: {saturation}, V: {value}")
     hsv_data.append({"Coordinate": f"{x},{y}", "Hue": hue, "Saturation": saturation, "Value": value}) #Adds data to the dataset
