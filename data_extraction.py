@@ -6,12 +6,12 @@ import pandas as pd
 # Global list to store HSV data
 hsv_data = [] # dataset 
 # Main function containing the backbone of the program
-def main():
+def main(img_num):
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
     #image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\57.jpg"
-    image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
+    image_path= fr"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/{img_num}.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
@@ -59,7 +59,9 @@ def get_terrain(tile,x ,y):
     return "Unknown"
 
 if __name__ == "__main__":
-    main()
+    pic= [1, 2, 3, 12, 13, 14, 23, 24, 25, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 55, 56, 57, 65, 66, 67]
+    for i in pic:
+        main(i)
 
 
 
@@ -69,4 +71,6 @@ if __name__ == "__main__":
     
     # Save to Excel
     df.to_excel('image_hsv_data.xlsx', index=False)
+    df.to_csv('image_hsv2.csv', index=False)
     print("Excel file created successfully.")
+

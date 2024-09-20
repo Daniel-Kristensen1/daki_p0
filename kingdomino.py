@@ -8,6 +8,7 @@ def main():
     print("| King Domino points calculator |")
     print("+-------------------------------+")
     #image_path = r"C:\Users\Daniel K\OneDrive\Desktop\DAKI\1. Semester\daki_p0\KDD\1.jpg" 
+    #image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
     image_path= r"/Users/daniel_kristensen/DAKI/opgaver/DAKI-opg/daki_p0/KDD/55.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
